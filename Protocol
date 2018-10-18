@@ -1,0 +1,15 @@
+Protocol Smart home
+
+Input:
+Burglar alarm lamp (on/off)
+Alarm sound (on/off) -- is used for both burglar and fire alarm---
+Turn outside lamp (on/off)
+Turn indoor lamp (on/off)
+Turn radiator (on/off)
+
+Output:
+Fire alarm ("on"/"off" string)
+Burglar alarm ("on"/"off" string)
+Temperature(celcius in float)
+Door("open"/"closed" string)
+Radiator("on"/"off")
