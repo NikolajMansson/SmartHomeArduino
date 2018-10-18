@@ -1,96 +1,113 @@
-/*
-  Blink
-  Turns on an LED on for one second, then off for one second, repeatedly.
- 
-  This example code is in the public domain.
- */
- 
-// Pin 13 has an LED connected on most Arduino boards.
-// give it a name:
+
 int b4 = 12;
 int b5 = 13;
 int b3 = 11;
 int b0 = 8;
 
-// the setup routine runs once when you press reset:
-void setup() {                
-  // initialize thef digital pin as an output.
-  pinMode(b4, OUTPUT);
+String command;
+
+void setup() {
+Serial.begin(9600);  
+ 
+pinMode(b4, OUTPUT);
 pinMode(b5, OUTPUT);
 pinMode(b3, OUTPUT);
 pinMode(b0, OUTPUT);
 }
 
-// the loop routine runs over and over again forever:
+
 void loop() {
-  burglarAlarmLampOn();
-  burglarAlarmLampOff();
-//turnOutsideLampOn();
-//turnOutsideLampOff();
-//turnIndoorLampOn();
-//turnIndoorLampOff();
-//turnAlarmOn();
-//turnAlarmOff();
-  // wait for a second
-  //digitalWrite(b0, LOW);    // turn the LED off by making the voltage LOW
-  //delay(1000);               // wait for a second
+  while(Serial.available()) {
+
+command= Serial.readString();// read the incoming data as string
+
+if(command == "1"){//serial command 1 to turn on burglar alarm
+burglarAlarmLampOn();
+Serial.println("Burglar alarm on");
+} 
+else if(command == "2"){//serial command 2 to turn off burglar alarm 
+burglarAlarmLampOff();
+Serial.println("Burglar alarm off");
+} else if(command == "3"){//serial command 3 to turn on firealarm alarm 
+turnAlarmOn();
+Serial.println("Fire alarm on");
+} else if(command == "4"){//serial command 4 to turn off firealarm alarm 
+turnAlarmOff();
+Serial.println("Fire alarm off");
+}else if(command == "5"){//serial command 5 to turn on outside lamp 
+turnOutsideLampOn();
+Serial.println("Lamp outside on");
+}else if(command == "6"){//serial command 6 to turn off outside lamp 
+turnOutsideLampOff();
+Serial.println("Lamp outside off");
+} else if(command == "7"){//serial command 7 to turn on indoor lamp 
+turnIndoorLampOn();
+Serial.println("Lamp inside on");
+} else if(command == "8"){//serial command 8 to turn off indoor lamp 
+turnIndoorLampOff();
+Serial.println("Lamp inside on");
+} else {
+ Serial.println("Not known command");
+}
+
+}
+
 }
 void turnOutsideLampOn(){
    digitalWrite(b4, LOW);
   digitalWrite(b5, HIGH);
   digitalWrite(b3, HIGH);
-  digitalWrite(b0, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(1000); 
+  digitalWrite(b0, HIGH);  
+  
 }
 void turnOutsideLampOff(){
 digitalWrite(b4, HIGH);
   digitalWrite(b5, HIGH);
   digitalWrite(b3, HIGH);
-  digitalWrite(b0, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(1000);
+  digitalWrite(b0, HIGH);  
   
 }
 void turnIndoorLampOn(){
    digitalWrite(b4, LOW);
   digitalWrite(b5, LOW);
   digitalWrite(b3, HIGH);
-  digitalWrite(b0, LOW);   // turn the LED on (HIGH is the voltage level)
-  //delay(1000); 
+  digitalWrite(b0, LOW);   
+  
 }
 
 void turnIndoorLampOff(){
    digitalWrite(b4, HIGH);
   digitalWrite(b5, LOW);
   digitalWrite(b3, HIGH);
-  digitalWrite(b0, LOW);   // turn the LED on (HIGH is the voltage level)
-  //delay(1000); 
+  digitalWrite(b0, LOW); 
+ 
 }
 
 void turnAlarmOn(){
    digitalWrite(b4, HIGH);
   digitalWrite(b5, LOW);
   digitalWrite(b3, LOW);
-  digitalWrite(b0, LOW);   // turn the LED on (HIGH is the voltage level)
-//  delay(1000); 
+  digitalWrite(b0, LOW);  
+ 
 }
 void turnAlarmOff(){
    digitalWrite(b4, LOW);
   digitalWrite(b5, LOW);
   digitalWrite(b3, LOW);
-  digitalWrite(b0, LOW);   // turn the LED on (HIGH is the voltage level)
-  //delay(2000); 
+  digitalWrite(b0, LOW);  
+
 }
 void burglarAlarmLampOn(){
   digitalWrite(b4, LOW);
   digitalWrite(b5, LOW);
   digitalWrite(b3, HIGH);
   digitalWrite(b0, HIGH);
-  //delay(2000); 
+  
 }
 void burglarAlarmLampOff(){
   digitalWrite(b4, HIGH);
   digitalWrite(b5, LOW);
   digitalWrite(b3, HIGH);
   digitalWrite(b0, HIGH);
-  //delay(2000);
+ 
 }
